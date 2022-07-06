@@ -1,12 +1,9 @@
-import type { AWS } from '@serverless/typescript';
-
-// import hello from './src/functions/hello/index';
-// import hello = require('./src/functions/hello/index.ts');
+import type { AWS } from '@serverless/typescript'
 
 const serverlessConfiguration: AWS = {
   service: 'serverless-esm-test',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -20,27 +17,28 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello: {
-    handler: `./src/functions/hello/handler.main`,
-    events: [
-      {
-        http: {
-          method: 'get',
-          path: 'hello',
+  functions: {
+    hello: {
+      handler: `./src/functions/hello/handler.main`,
+      events: [
+        {
+          httpApi: {
+            method: 'get',
+            path: '/hello',
+          },
         },
-      },
-    ],
-   },
+      ],
+    },
   },
   package: { individually: true },
   custom: {
     esbuild: {
       format: 'esm',
-      outExtension: {'.js':'.mjs'},
+      // outExtension: { '.js': '.mjs' },
       bundle: true,
       minify: false,
       sourcemap: true,
-      keepOutputDirectory: true,
+      // keepOutputDirectory: true,
       external: ['aws-sdk'],
       exclude: ['aws-sdk'],
       target: 'node16',
@@ -49,7 +47,7 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
   },
-};
+}
 
 // module.exports = serverlessConfiguration;
-export default serverlessConfiguration;
+export default serverlessConfiguration

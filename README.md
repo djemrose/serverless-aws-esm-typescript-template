@@ -10,11 +10,6 @@ Depending on your preferred package manager, follow the instructions below to de
 
 > **Requirements**: NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
 
-### Using NPM
-
-- Run `npm i` to install the project dependencies
-- Run `npx sls deploy` to deploy this stack to AWS
-
 ### Using Yarn
 
 - Run `yarn` to install the project dependencies
@@ -30,7 +25,7 @@ This template contains a single lambda function triggered by an HTTP request mad
 
 > :warning: As is, this template, once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
 
-### Locally
+### Test Locally
 
 In order to test the hello function locally, run the following command:
 
@@ -38,6 +33,10 @@ In order to test the hello function locally, run the following command:
 - `yarn sls invoke local -f hello --path src/functions/hello/mock.json` if you're using Yarn
 
 Check the [sls invoke local command documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/) for more information.
+
+### Running Locally
+
+Uses patch-package to patch serverless-offline to remove the default `require()` and replace it with an `import()` as detailed here: https://github.com/dherault/serverless-offline/issues/1014
 
 ### Remotely
 

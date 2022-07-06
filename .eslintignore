@@ -1,0 +1,14 @@
+
+node_modules
+patches
+.serverless
+.vscode
+.dynamodb
+.nvmrc
+*.config.js
+*.lock
+*.log
+.webpack
+_warmup
+**/*.js
+webpack.config.js
